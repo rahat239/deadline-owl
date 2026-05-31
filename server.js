@@ -19,7 +19,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/auth', authRoutes);
 app.use('/api/deadlines', deadlineRoutes);
 
-// Pages
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 app.get('/login', (req, res) => res.sendFile(path.join(__dirname, 'public', 'login.html')));
 app.get('/register', (req, res) => res.sendFile(path.join(__dirname, 'public', 'register.html')));
@@ -27,21 +26,20 @@ app.get('/dashboard', (req, res) => res.sendFile(path.join(__dirname, 'public', 
 app.get('/terms', (req, res) => res.sendFile(path.join(__dirname, 'public', 'terms.html')));
 app.get('/privacy', (req, res) => res.sendFile(path.join(__dirname, 'public', 'privacy.html')));
 app.get('/refund', (req, res) => res.sendFile(path.join(__dirname, 'public', 'refund.html')));
+app.get('/blog', (req, res) => res.sendFile(path.join(__dirname, 'public', 'blog.html')));
 app.get('/pricing', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
-app.get('/blog', (req, res) => {
-  const blogPath = path.join(__dirname, 'public', 'blog.html');
-  const fs = require('fs');
-  if (fs.existsSync(blogPath)) res.sendFile(blogPath);
-  else res.sendFile(path.join(__dirname, 'public', 'index.html'));
+app.get('/blog/:slug', (req, res) => {
+  const filePath = path.join(__dirname, 'public', 'blog', `${req.params.slug}.html`);
+  res.sendFile(filePath, err => {
+    if (err) res.status(404).send('Post not found');
+  });
 });
 
-// Run alert scheduler daily at 9am UTC
 cron.schedule('0 9 * * *', async () => {
   try { await runAlertScheduler(); }
   catch (err) { console.error('Scheduler error:', err.message); }
 });
 
-// Also run on startup after 10 seconds
 setTimeout(() => { runAlertScheduler().catch(console.error); }, 10000);
 
 app.listen(PORT, () => {
