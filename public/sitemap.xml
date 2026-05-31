@@ -3,6 +3,9 @@
   <url><loc>https://deadlineowl.online/</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
   <url><loc>https://deadlineowl.online/register</loc><priority>0.9</priority></url>
   <url><loc>https://deadlineowl.online/blog</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://deadlineowl.online/blog/compliance-deadline-tracker</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://deadlineowl.online/blog/tax-filing-deadline-reminder</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://deadlineowl.online/blog/regulatory-compliance-calendar</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://deadlineowl.online/terms</loc><priority>0.3</priority></url>
   <url><loc>https://deadlineowl.online/privacy</loc><priority>0.3</priority></url>
 </urlset>
