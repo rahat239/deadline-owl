@@ -39,10 +39,7 @@ router.post('/register', async (req, res) => {
   );
 
   res.setHeader('Set-Cookie', `token=${token}; Max-Age=2592000; HttpOnly; SameSite=lax; Path=/`);
-
-  // Send welcome email in background
   sendWelcomeEmail({ to: user.email, name: user.company_name }).catch(console.error);
-
   res.json({ success: true, user: { id: user.id, email: user.email, plan: user.plan } });
 });
 
@@ -79,7 +76,6 @@ router.post('/logout', (req, res) => {
 router.get('/me', async (req, res) => {
   const token = req.cookies?.token;
   if (!token) return res.status(401).json({ error: 'Not authenticated' });
-
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const { data: user } = await supabase
