@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — DeadlineOwl</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#060610;--bg2:#0e0e1a;--bg3:#161625;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+  --text:#f0f0f8;--muted:#7878a0;
+  --accent:#7c6cf8;--accent2:#a89ff8;--accent-bg:rgba(124,108,248,0.12);
+  --green:#34d399;--green-bg:rgba(52,211,153,0.1);
+  --amber:#fbbf24;--amber-bg:rgba(251,191,36,0.1);
+  --red:#f87171;--red-bg:rgba(248,113,113,0.1);
+  --serif:'DM Serif Display',serif;--sans:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
+  --radius:12px;--radius-sm:8px;
+}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh}
+.layout{display:flex;min-height:100vh}
+
+/* SIDEBAR */
+.sidebar{width:240px;min-width:240px;background:var(--bg2);border-right:1px solid var(--border);padding:1.5rem 0;display:flex;flex-direction:column;position:fixed;top:0;bottom:0;left:0;z-index:10}
+.sidebar-logo{font-family:var(--serif);font-size:1.2rem;padding:0 1.25rem 1.5rem;border-bottom:1px solid var(--border);margin-bottom:1rem}
+.sidebar-nav{flex:1;padding:0 0.75rem;display:flex;flex-direction:column;gap:4px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:0.6rem 0.75rem;border-radius:var(--radius-sm);color:var(--muted);font-size:0.9rem;cursor:pointer;transition:all 0.15s;text-decoration:none;border:none;background:none;width:100%;text-align:left}
+.nav-item:hover{background:var(--bg3);color:var(--text)}
+.nav-item.active{background:var(--accent-bg);color:var(--accent2)}
+.nav-icon{font-size:1.1rem;width:20px;text-align:center}
+.sidebar-footer{padding:1rem 1.25rem;border-top:1px solid var(--border)}
+.user-info{font-size:0.8rem;color:var(--muted);margin-bottom:0.5rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.plan-badge{display:inline-block;padding:0.2rem 0.6rem;background:var(--accent-bg);border:1px solid rgba(124,108,248,0.3);border-radius:100px;font-size:0.72rem;color:var(--accent2);margin-bottom:0.75rem}
+.logout-btn{background:none;border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--muted);font-family:var(--sans);font-size:0.82rem;padding:0.5rem 1rem;cursor:pointer;width:100%;transition:all 0.15s}
+.logout-btn:hover{color:var(--text)}
+
+/* MAIN */
+.main{margin-left:240px;flex:1;padding:2rem}
+.page-title{font-family:var(--serif);font-size:2rem;margin-bottom:0.25rem}
+.page-sub{font-size:0.9rem;color:var(--muted);margin-bottom:2rem}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-bottom:2rem}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem}
+.stat-label{font-size:0.75rem;color:var(--muted);margin-bottom:0.4rem;text-transform:uppercase;letter-spacing:0.05em}
+.stat-val{font-family:var(--serif);font-size:2rem}
+.stat-val.accent{color:var(--accent2)}
+.stat-val.green{color:var(--green)}
+.stat-val.amber{color:var(--amber)}
+.stat-val.red{color:var(--red)}
+
+/* ADD FORM */
+.add-form{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:2rem}
+.add-form h2{font-size:1rem;font-weight:600;margin-bottom:1.25rem}
+.form-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:1rem;margin-bottom:1rem}
+.form-grid2{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem}
+.form-field label{display:block;font-size:0.8rem;color:var(--muted);margin-bottom:0.4rem}
+.form-field input,.form-field select,.form-field textarea{width:100%;padding:0.6rem 0.9rem;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:var(--sans);font-size:0.88rem;outline:none;transition:border-color 0.2s}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-color:var(--accent)}
+.form-field select option{background:var(--bg3)}
+.add-btn{padding:0.65rem 1.5rem;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);font-family:var(--sans);font-size:0.9rem;font-weight:600;cursor:pointer;transition:background 0.2s}
+.add-btn:hover{background:#6a5ae0}
+.add-btn:disabled{opacity:0.6;cursor:not-allowed}
+
+.alerts-row{display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap;margin-bottom:1rem}
+.alert-check{display:flex;align-items:center;gap:6px;font-size:0.83rem;color:var(--muted);cursor:pointer}
+.alert-check input{width:auto;cursor:pointer}
+
+/* DEADLINE CARDS */
+.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.section-title{font-size:1rem;font-weight:600}
+.filter-tabs{display:flex;gap:4px}
+.filter-tab{padding:0.35rem 0.75rem;border-radius:var(--radius-sm);font-size:0.78rem;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:var(--sans);transition:all 0.15s}
+.filter-tab:hover{color:var(--text)}
+.filter-tab.active{background:var(--accent-bg);border-color:rgba(124,108,248,0.4);color:var(--accent2)}
+
+.deadline-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:0.75rem;transition:border-color 0.2s}
+.deadline-card:hover{border-color:var(--border2)}
+.deadline-card.urgent{border-left:3px solid var(--red)}
+.deadline-card.warning{border-left:3px solid var(--amber)}
+.deadline-card.completed{opacity:0.6}
+.deadline-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:0.6rem}
+.deadline-title{font-size:0.95rem;font-weight:600}
+.deadline-desc{font-size:0.82rem;color:var(--muted);margin-top:2px}
+.deadline-actions{display:flex;gap:6px;flex-shrink:0}
+.action-btn{padding:0.3rem 0.7rem;border-radius:var(--radius-sm);font-size:0.75rem;cursor:pointer;border:1px solid var(--border2);background:transparent;color:var(--muted);transition:all 0.15s;font-family:var(--sans)}
+.action-btn:hover{color:var(--text);background:var(--bg3)}
+.action-btn.success:hover{color:var(--green);border-color:rgba(52,211,153,0.3)}
+.action-btn.danger:hover{color:var(--red);border-color:rgba(248,113,113,0.3)}
+.deadline-meta{display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap}
+.days-pill{display:inline-flex;align-items:center;gap:5px;padding:0.2rem 0.65rem;border-radius:100px;font-size:0.75rem;font-weight:600}
+.days-pill.urgent{background:var(--red-bg);color:var(--red);border:1px solid rgba(248,113,113,0.25)}
+.days-pill.warning{background:var(--amber-bg);color:var(--amber);border:1px solid rgba(251,191,36,0.25)}
+.days-pill.ok{background:var(--green-bg);color:var(--green);border:1px solid rgba(52,211,153,0.25)}
+.days-pill.upcoming{background:var(--accent-bg);color:var(--accent2);border:1px solid rgba(124,108,248,0.25)}
+.days-pill.completed{background:rgba(136,136,160,0.1);color:var(--muted);border:1px solid var(--border)}
+.meta-item{font-size:0.78rem;color:var(--muted)}
+.meta-item span{color:var(--text)}
+
+.empty{text-align:center;padding:3rem 2rem;color:var(--muted)}
+.empty-icon{font-size:3rem;margin-bottom:1rem}
+.empty h3{font-size:1.1rem;font-weight:600;color:var(--text);margin-bottom:0.5rem}
+.loading{text-align:center;padding:3rem;color:var(--muted)}
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);padding:1rem 1.25rem;font-size:0.88rem;display:none;z-index:999;max-width:320px}
+.toast.show{display:block}
+.toast.success{border-color:rgba(52,211,153,0.4)}
+.toast.error{border-color:rgba(248,113,113,0.4);color:var(--red)}
+
+@media(max-width:700px){.sidebar{display:none}.main{margin-left:0}.form-grid{grid-template-columns:1fr}.form-grid2{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+  <div class="sidebar-logo">🦉 DeadlineOwl</div>
+  <nav class="sidebar-nav">
+    <button class="nav-item active" onclick="showSection('deadlines')"><span class="nav-icon">📅</span> Deadlines</button>
+    <button class="nav-item" onclick="showSection('completed')"><span class="nav-icon">✅</span> Completed</button>
+    <button class="nav-item" onclick="showSection('missed')"><span class="nav-icon">⚠️</span> Missed</button>
+    <a class="nav-item" href="/pricing"><span class="nav-icon">⚡</span> Upgrade Plan</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="user-info" id="userEmail">Loading…</div>
+    <div class="plan-badge" id="userPlan">free</div>
+    <button class="logout-btn" onclick="logout()">Sign out</button>
+  </div>
+</aside>
+
+<main class="main">
+  <!-- DEADLINES SECTION -->
+  <div id="section-deadlines">
+    <div style="margin-bottom:2rem">
+      <h1 class="page-title">Your Deadlines</h1>
+      <p class="page-sub">Track every compliance deadline. Get alerted automatically.</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-label">Total</div><div class="stat-val accent" id="stat-total">—</div></div>
+      <div class="stat-card"><div class="stat-label">Due in 7 days</div><div class="stat-val red" id="stat-soon">—</div></div>
+      <div class="stat-card"><div class="stat-label">This month</div><div class="stat-val amber" id="stat-month">—</div></div>
+      <div class="stat-card"><div class="stat-label">Completed</div><div class="stat-val green" id="stat-done">—</div></div>
+      <div class="stat-card"><div class="stat-label">Missed</div><div class="stat-val red" id="stat-missed">—</div></div>
+    </div>
+
+    <!-- ADD FORM -->
+    <div class="add-form">
+      <h2>Add new deadline</h2>
+      <div class="form-grid">
+        <div class="form-field">
+          <label>Deadline title *</label>
+          <input type="text" id="newTitle" placeholder="e.g. Q2 VAT Return Filing">
+        </div>
+        <div class="form-field">
+          <label>Due date *</label>
+          <input type="date" id="newDate">
+        </div>
+        <div class="form-field">
+          <label>Category</label>
+          <select id="newCategory">
+            <option value="tax">Tax</option>
+            <option value="privacy">Privacy / GDPR</option>
+            <option value="financial">Financial</option>
+            <option value="legal">Legal</option>
+            <option value="security">Security</option>
+            <option value="environmental">Environmental</option>
+            <option value="labor">Labor / HR</option>
+            <option value="license">License / Permit</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-grid2">
+        <div class="form-field">
+          <label>Jurisdiction</label>
+          <input type="text" id="newJurisdiction" placeholder="e.g. United Kingdom, EU, US-CA">
+        </div>
+        <div class="form-field">
+          <label>Notes (optional)</label>
+          <input type="text" id="newDesc" placeholder="Any additional details">
+        </div>
+        <div class="form-field">
+          <label>Alert schedule</label>
+          <div class="alerts-row" style="margin-top:8px;margin-bottom:0">
+            <label class="alert-check"><input type="checkbox" id="alert30" checked> 30 days</label>
+            <label class="alert-check"><input type="checkbox" id="alert14" checked> 14 days</label>
+            <label class="alert-check"><input type="checkbox" id="alert7" checked> 7 days</label>
+            <label class="alert-check"><input type="checkbox" id="alert1" checked> 1 day</label>
+          </div>
+        </div>
+      </div>
+      <button class="add-btn" onclick="addDeadline()" id="addBtn">+ Add deadline</button>
+    </div>
+
+    <!-- LIST -->
+    <div class="section-header">
+      <div class="section-title">Upcoming deadlines</div>
+      <div class="filter-tabs">
+        <button class="filter-tab active" onclick="filterDeadlines('all', this)">All</button>
+        <button class="filter-tab" onclick="filterDeadlines('urgent', this)">🚨 Urgent</button>
+        <button class="filter-tab" onclick="filterDeadlines('tax', this)">Tax</button>
+        <button class="filter-tab" onclick="filterDeadlines('privacy', this)">Privacy</button>
+        <button class="filter-tab" onclick="filterDeadlines('legal', this)">Legal</button>
+      </div>
+    </div>
+    <div id="deadlines-list"><div class="loading">Loading deadlines…</div></div>
+  </div>
+
+  <!-- COMPLETED SECTION -->
+  <div id="section-completed" style="display:none">
+    <h1 class="page-title">Completed</h1>
+    <p class="page-sub">Deadlines you've marked as complete.</p>
+    <div id="completed-list"><div class="loading">Loading…</div></div>
+  </div>
+
+  <!-- MISSED SECTION -->
+  <div id="section-missed" style="display:none">
+    <h1 class="page-title">Missed</h1>
+    <p class="page-sub">Deadlines that passed without completion.</p>
+    <div id="missed-list"><div class="loading">Loading…</div></div>
+  </div>
+</main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let user = null;
+let allDeadlines = [];
+let currentFilter = 'all';
+
+(async () => {
+  try {
+    const res = await fetch('/api/auth/me');
+    if (!res.ok) { window.location.href = '/login'; return; }
+    user = await res.json();
+    document.getElementById('userEmail').textContent = user.email;
+    document.getElementById('userPlan').textContent = user.plan.charAt(0).toUpperCase() + user.plan.slice(1);
+    await loadDeadlines();
+    await loadStats();
+  } catch { window.location.href = '/login'; }
+})();
+
+function showSection(name) {
+  ['deadlines','completed','missed'].forEach(s => {
+    document.getElementById('section-' + s).style.display = s === name ? 'block' : 'none';
+  });
+  document.querySelectorAll('.nav-item').forEach((el, i) => {
+    el.classList.toggle('active', (i === 0 && name === 'deadlines') || (i === 1 && name === 'completed') || (i === 2 && name === 'missed'));
+  });
+  if (name === 'completed') loadStatusList('completed', 'completed-list');
+  if (name === 'missed') loadStatusList('missed', 'missed-list');
+}
+
+async function loadDeadlines() {
+  const res = await fetch('/api/deadlines');
+  if (!res.ok) return;
+  allDeadlines = await res.json();
+  renderDeadlines();
+}
+
+async function loadStats() {
+  const res = await fetch('/api/deadlines/stats');
+  if (!res.ok) return;
+  const s = await res.json();
+  document.getElementById('stat-total').textContent = s.total;
+  document.getElementById('stat-soon').textContent = s.due_soon;
+  document.getElementById('stat-month').textContent = s.due_this_month;
+  document.getElementById('stat-done').textContent = s.completed;
+  document.getElementById('stat-missed').textContent = s.missed;
+}
+
+function filterDeadlines(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderDeadlines();
+}
+
+function renderDeadlines() {
+  const list = document.getElementById('deadlines-list');
+  const today = new Date(); today.setHours(0,0,0,0);
+
+  let upcoming = allDeadlines.filter(d => d.status === 'upcoming');
+  if (currentFilter === 'urgent') upcoming = upcoming.filter(d => daysUntil(d.due_date) <= 7);
+  else if (currentFilter !== 'all') upcoming = upcoming.filter(d => d.category === currentFilter);
+
+  if (!upcoming.length) {
+    list.innerHTML = `<div class="empty"><div class="empty-icon">🦉</div><h3>No deadlines yet</h3><p>Add your first compliance deadline above.</p></div>`;
+    return;
+  }
+
+  list.innerHTML = upcoming.map(d => {
+    const days = daysUntil(d.due_date);
+    let pillClass = 'upcoming', pillLabel = `📅 ${days} days`;
+    if (days <= 1) { pillClass = 'urgent'; pillLabel = days === 0 ? '🚨 TODAY' : '🚨 Tomorrow'; }
+    else if (days <= 7) { pillClass = 'urgent'; pillLabel = `🚨 ${days} days`; }
+    else if (days <= 14) { pillClass = 'warning'; pillLabel = `⚠️ ${days} days`; }
+    else if (days <= 30) { pillClass = 'upcoming'; pillLabel = `📅 ${days} days`; }
+    else { pillClass = 'ok'; pillLabel = `✓ ${days} days`; }
+
+    const cardClass = days <= 3 ? 'urgent' : days <= 7 ? 'warning' : '';
+
+    return `
+    <div class="deadline-card ${cardClass}" id="dl-${d.id}">
+      <div class="deadline-top">
+        <div>
+          <div class="deadline-title">${escHtml(d.title)}</div>
+          ${d.description ? `<div class="deadline-desc">${escHtml(d.description)}</div>` : ''}
+        </div>
+        <div class="deadline-actions">
+          <button class="action-btn success" onclick="markComplete('${d.id}')">✓ Done</button>
+          <button class="action-btn danger" onclick="deleteDeadline('${d.id}')">Delete</button>
+        </div>
+      </div>
+      <div class="deadline-meta">
+        <span class="days-pill ${pillClass}">${pillLabel}</span>
+        <span class="meta-item">Due: <span>${formatDate(d.due_date)}</span></span>
+        ${d.category ? `<span class="meta-item">🏷️ <span>${d.category}</span></span>` : ''}
+        ${d.jurisdiction ? `<span class="meta-item">📍 <span>${escHtml(d.jurisdiction)}</span></span>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function loadStatusList(status, containerId) {
+  const list = document.getElementById(containerId);
+  const items = allDeadlines.filter(d => d.status === status);
+  if (!items.length) {
+    list.innerHTML = `<div class="empty"><div class="empty-icon">${status === 'completed' ? '✅' : '⚠️'}</div><h3>No ${status} deadlines</h3><p>${status === 'completed' ? 'Completed deadlines will appear here.' : 'Missed deadlines will appear here.'}</p></div>`;
+    return;
+  }
+  list.innerHTML = items.map(d => `
+    <div class="deadline-card completed">
+      <div class="deadline-top">
+        <div>
+          <div class="deadline-title">${escHtml(d.title)}</div>
+          ${d.description ? `<div class="deadline-desc">${escHtml(d.description)}</div>` : ''}
+        </div>
+        <span class="days-pill completed">${status === 'completed' ? '✅ Completed' : '⚠️ Missed'}</span>
+      </div>
+      <div class="deadline-meta">
+        <span class="meta-item">Due: <span>${formatDate(d.due_date)}</span></span>
+        ${d.category ? `<span class="meta-item">🏷️ <span>${d.category}</span></span>` : ''}
+      </div>
+    </div>`).join('');
+}
+
+async function addDeadline() {
+  const title = document.getElementById('newTitle').value.trim();
+  const due_date = document.getElementById('newDate').value;
+  const category = document.getElementById('newCategory').value;
+  const jurisdiction = document.getElementById('newJurisdiction').value.trim();
+  const description = document.getElementById('newDesc').value.trim();
+  const alert_30d = document.getElementById('alert30').checked;
+  const alert_14d = document.getElementById('alert14').checked;
+  const alert_7d = document.getElementById('alert7').checked;
+  const alert_1d = document.getElementById('alert1').checked;
+  const btn = document.getElementById('addBtn');
+
+  if (!title) { showToast('Please enter a deadline title', 'error'); return; }
+  if (!due_date) { showToast('Please select a due date', 'error'); return; }
+
+  btn.disabled = true; btn.textContent = 'Adding…';
+
+  const res = await fetch('/api/deadlines', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ title, due_date, category, jurisdiction, description, alert_30d, alert_14d, alert_7d, alert_1d }),
+  });
+  const data = await res.json();
+
+  btn.disabled = false; btn.textContent = '+ Add deadline';
+
+  if (!res.ok) { showToast(data.error || 'Failed to add deadline', 'error'); return; }
+
+  document.getElementById('newTitle').value = '';
+  document.getElementById('newDate').value = '';
+  document.getElementById('newJurisdiction').value = '';
+  document.getElementById('newDesc').value = '';
+  showToast('Deadline added! Alerts scheduled.', 'success');
+  await loadDeadlines();
+  await loadStats();
+}
+
+async function markComplete(id) {
+  const res = await fetch(`/api/deadlines/${id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ status: 'completed' }),
+  });
+  if (res.ok) { showToast('Marked as complete ✅', 'success'); await loadDeadlines(); await loadStats(); }
+}
+
+async function deleteDeadline(id) {
+  if (!confirm('Delete this deadline?')) return;
+  const res = await fetch(`/api/deadlines/${id}`, { method: 'DELETE' });
+  if (res.ok) { showToast('Deadline deleted'); await loadDeadlines(); await loadStats(); }
+}
+
+async function logout() {
+  await fetch('/api/auth/logout', { method: 'POST' });
+  window.location.href = '/';
+}
+
+function daysUntil(dateStr) {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const due = new Date(dateStr); due.setHours(0,0,0,0);
+  return Math.round((due - today) / (1000 * 60 * 60 * 24));
+}
+
+function formatDate(dateStr) {
+  return new Date(dateStr).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+}
+
+function escHtml(str) {
+  return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (type ? ' ' + type : '');
+  setTimeout(() => { t.className = 'toast'; }, 3000);
+}
+</script>
+</body>
+</html>
