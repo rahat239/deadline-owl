@@ -4,122 +4,143 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Create Account — DeadlineOwl</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#060610;--bg2:#0e0e1a;--bg3:#161625;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);--text:#f0f0f8;--muted:#7878a0;--accent:#7c6cf8;--accent2:#a89ff8;--green:#34d399;--red:#f87171;--serif:'DM Serif Display',serif;--sans:'DM Sans',sans-serif;--radius:12px}
-body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem}
-.logo{font-family:var(--serif);font-size:1.4rem;color:var(--text);text-decoration:none;margin-bottom:2.5rem}
-.card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:2.5rem;width:100%;max-width:440px}
-h1{font-family:var(--serif);font-size:1.8rem;margin-bottom:0.4rem}
-.subtitle{font-size:0.9rem;color:var(--muted);margin-bottom:2rem}
+:root{--black:#0d0d0d;--white:#ffffff;--off:#f8f7f4;--border:#e5e3de;--text:#1c1c1a;--muted:#6b6b62;--light:#9a9a90;--gold:#b8973a;--green:#1a6b3a;--red:#8b1a1a;--serif:'Playfair Display',Georgia,serif;--sans:'Source Sans 3',system-ui,sans-serif}
+body{font-family:var(--sans);background:var(--off);color:var(--text);min-height:100vh;display:grid;grid-template-columns:1fr 1fr}
+.left{position:relative;overflow:hidden}
+.left-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1200&q=80') center/cover no-repeat;filter:brightness(0.3)}
+.left-content{position:relative;z-index:2;padding:3rem;height:100%;display:flex;flex-direction:column;justify-content:space-between}
+.logo{font-family:var(--serif);font-size:1.4rem;color:var(--white);text-decoration:none}
+.left-perks{display:flex;flex-direction:column;gap:1.25rem}
+.perk{display:flex;align-items:flex-start;gap:1rem}
+.perk-icon{width:32px;height:32px;background:rgba(184,151,58,0.2);border:1px solid rgba(184,151,58,0.4);display:flex;align-items:center;justify-content:center;font-size:0.875rem;flex-shrink:0;color:var(--gold)}
+.perk-title{font-size:0.875rem;font-weight:600;color:var(--white);margin-bottom:2px}
+.perk-desc{font-size:0.78rem;color:rgba(255,255,255,0.5);line-height:1.5}
+.right{display:flex;align-items:center;justify-content:center;padding:3rem 2rem;overflow-y:auto}
+.form-card{width:100%;max-width:440px}
+.form-eyebrow{font-size:0.72rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem}
+h1{font-family:var(--serif);font-size:2rem;font-weight:400;margin-bottom:0.5rem;color:var(--text)}
+.form-sub{font-size:0.9rem;color:var(--muted);margin-bottom:2rem}
 .field{margin-bottom:1.1rem}
-label{display:block;font-size:0.82rem;font-weight:500;margin-bottom:0.4rem;color:var(--muted)}
-input,select{width:100%;padding:0.7rem 1rem;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);color:var(--text);font-family:var(--sans);font-size:0.92rem;outline:none;transition:border-color 0.2s}
-input:focus,select:focus{border-color:var(--accent)}
-input::placeholder{color:var(--muted)}
-select option{background:var(--bg3)}
+label{display:block;font-size:0.78rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem}
+input,select{width:100%;padding:0.8rem 1rem;background:var(--white);border:1px solid var(--border);font-family:var(--sans);font-size:0.92rem;color:var(--text);outline:none;transition:border-color 0.2s;appearance:none}
+input:focus,select:focus{border-color:var(--gold)}
+input::placeholder{color:var(--light)}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239a9a90' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem}
-.btn{width:100%;padding:0.85rem;background:var(--accent);color:#fff;border:none;border-radius:var(--radius);font-family:var(--sans);font-size:1rem;font-weight:600;cursor:pointer;margin-top:0.5rem;transition:background 0.2s}
-.btn:hover{background:#6a5ae0}
-.btn:disabled{opacity:0.6;cursor:not-allowed}
-.error{background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.3);border-radius:8px;padding:0.75rem 1rem;font-size:0.85rem;color:var(--red);margin-bottom:1rem;display:none}
-.perks{display:flex;flex-direction:column;gap:6px;margin-bottom:1.5rem}
-.perk{font-size:0.82rem;color:var(--muted);display:flex;align-items:center;gap:6px}
-.perk-check{color:var(--green)}
-.alt-link{text-align:center;margin-top:1.5rem;font-size:0.88rem;color:var(--muted)}
-.alt-link a{color:var(--accent2);text-decoration:none}
+.btn-submit{width:100%;padding:0.875rem;background:var(--black);color:var(--white);font-family:var(--sans);font-size:0.82rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;border:none;cursor:pointer;transition:background 0.2s;margin-top:0.5rem}
+.btn-submit:hover{background:#333}
+.btn-submit:disabled{opacity:0.6;cursor:not-allowed}
+.error{background:#fef2f2;border:1px solid #fecaca;padding:0.75rem 1rem;font-size:0.85rem;color:var(--red);margin-bottom:1rem;display:none}
+.divider{border:none;border-top:1px solid var(--border);margin:1.5rem 0}
+.alt-text{font-size:0.875rem;color:var(--muted);text-align:center}
+.alt-text a{color:var(--text);font-weight:600;text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:1px;transition:border-color 0.2s}
+.alt-text a:hover{border-color:var(--gold)}
+@media(max-width:768px){body{grid-template-columns:1fr}.left{display:none}}
 </style>
 </head>
 <body>
-<a href="/" class="logo">🦉 DeadlineOwl</a>
-<div class="card">
-  <h1>Create your account</h1>
-  <p class="subtitle">Start tracking compliance deadlines for free.</p>
-  <div class="perks">
-    <div class="perk"><span class="perk-check">✓</span> 5 deadlines free forever</div>
-    <div class="perk"><span class="perk-check">✓</span> Automatic email alerts</div>
-    <div class="perk"><span class="perk-check">✓</span> No credit card required</div>
-  </div>
-  <div class="error" id="error"></div>
-  <div class="field">
-    <label>Email address</label>
-    <input type="email" id="email" placeholder="you@company.com" autocomplete="email">
-  </div>
-  <div class="field">
-    <label>Password <span style="font-size:0.75rem;color:var(--muted)">(min 8 chars)</span></label>
-    <input type="password" id="password" placeholder="••••••••" autocomplete="new-password">
-  </div>
-  <div class="field">
-    <label>Company name <span style="font-size:0.75rem;color:var(--muted)">(optional)</span></label>
-    <input type="text" id="company" placeholder="Acme Corp">
-  </div>
-  <div class="row">
-    <div class="field">
-      <label>Industry</label>
-      <select id="industry">
-        <option value="">Select...</option>
-        <option>Legal</option>
-        <option>Finance</option>
-        <option>Healthcare</option>
-        <option>Technology</option>
-        <option>Manufacturing</option>
-        <option>Real Estate</option>
-        <option>Other</option>
-      </select>
-    </div>
-    <div class="field">
-      <label>Country</label>
-      <select id="country">
-        <option value="">Select...</option>
-        <option>United States</option>
-        <option>United Kingdom</option>
-        <option>European Union</option>
-        <option>Canada</option>
-        <option>Australia</option>
-        <option>Bangladesh</option>
-        <option>India</option>
-        <option>Other</option>
-      </select>
+<div class="left">
+  <div class="left-bg"></div>
+  <div class="left-content">
+    <a href="/" class="logo">DeadlineOwl</a>
+    <div class="left-perks">
+      <div class="perk">
+        <div class="perk-icon">✓</div>
+        <div><div class="perk-title">5 deadlines free forever</div><div class="perk-desc">No credit card required. Start immediately.</div></div>
+      </div>
+      <div class="perk">
+        <div class="perk-icon">🔔</div>
+        <div><div class="perk-title">Automatic email alerts</div><div class="perk-desc">30, 14, 7, and 1 day before every deadline.</div></div>
+      </div>
+      <div class="perk">
+        <div class="perk-icon">📋</div>
+        <div><div class="perk-title">Full audit trail</div><div class="perk-desc">Every alert, every completion, timestamped.</div></div>
+      </div>
+      <div class="perk">
+        <div class="perk-icon">🌍</div>
+        <div><div class="perk-title">Any jurisdiction</div><div class="perk-desc">Tax, GDPR, SEC, HIPAA and more.</div></div>
+      </div>
     </div>
   </div>
-  <button class="btn" id="registerBtn" onclick="register()">Create free account →</button>
-  <div class="alt-link">Already have an account? <a href="/login">Sign in</a></div>
 </div>
-
+<div class="right">
+  <div class="form-card">
+    <p class="form-eyebrow">Get started free</p>
+    <h1>Create your account</h1>
+    <p class="form-sub">No credit card required. 5 deadlines free forever.</p>
+    <div class="error" id="error"></div>
+    <div class="field">
+      <label>Email address</label>
+      <input type="email" id="email" placeholder="you@company.com" autocomplete="email">
+    </div>
+    <div class="field">
+      <label>Password <span style="font-weight:400;color:var(--light)">(min 8 characters)</span></label>
+      <input type="password" id="password" placeholder="••••••••" autocomplete="new-password">
+    </div>
+    <div class="field">
+      <label>Company name <span style="font-weight:400;color:var(--light)">(optional)</span></label>
+      <input type="text" id="company" placeholder="Acme Legal LLP">
+    </div>
+    <div class="row">
+      <div class="field">
+        <label>Industry</label>
+        <select id="industry">
+          <option value="">Select...</option>
+          <option>Legal</option>
+          <option>Finance</option>
+          <option>Healthcare</option>
+          <option>Technology</option>
+          <option>Manufacturing</option>
+          <option>Real Estate</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Country</label>
+        <select id="country">
+          <option value="">Select...</option>
+          <option>United States</option>
+          <option>United Kingdom</option>
+          <option>European Union</option>
+          <option>Canada</option>
+          <option>Australia</option>
+          <option>Bangladesh</option>
+          <option>India</option>
+          <option>Other</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-submit" id="registerBtn">Create free account</button>
+    <hr class="divider">
+    <p class="alt-text">Already have an account? <a href="/login">Sign in</a></p>
+  </div>
+</div>
 <script>
-// Pre-fill email from URL param
 const urlEmail = new URLSearchParams(window.location.search).get('email');
 if (urlEmail) document.getElementById('email').value = urlEmail;
 
-async function register() {
-  const email = document.getElementById('email').value.trim();
-  const password = document.getElementById('password').value;
-  const company_name = document.getElementById('company').value.trim();
-  const industry = document.getElementById('industry').value;
-  const country = document.getElementById('country').value;
-  const btn = document.getElementById('registerBtn');
-  const errEl = document.getElementById('error');
-
-  if (!email || !password) { showError('Please fill in email and password'); return; }
-  if (password.length < 8) { showError('Password must be at least 8 characters'); return; }
-
-  btn.disabled = true; btn.textContent = 'Creating account…'; errEl.style.display = 'none';
-
+document.getElementById('registerBtn').onclick = async function() {
+  var email = document.getElementById('email').value.trim();
+  var pw = document.getElementById('password').value;
+  var company = document.getElementById('company').value.trim();
+  var industry = document.getElementById('industry').value;
+  var country = document.getElementById('country').value;
+  var btn = document.getElementById('registerBtn');
+  var err = document.getElementById('error');
+  if (!email || !pw) { err.textContent='Please fill in email and password'; err.style.display='block'; return; }
+  if (pw.length < 8) { err.textContent='Password must be at least 8 characters'; err.style.display='block'; return; }
+  btn.disabled=true; btn.textContent='Creating account...'; err.style.display='none';
   try {
-    const res = await fetch('/api/auth/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password, company_name, industry, country }),
-    });
-    const data = await res.json();
-    if (!res.ok) { showError(data.error || 'Registration failed'); btn.disabled = false; btn.textContent = 'Create free account →'; return; }
-    window.location.href = '/dashboard';
-  } catch { showError('Network error. Please try again.'); btn.disabled = false; btn.textContent = 'Create free account →'; }
-}
-
-function showError(msg) { const el = document.getElementById('error'); el.textContent = msg; el.style.display = 'block'; }
-document.addEventListener('keydown', e => { if (e.key === 'Enter') register(); });
+    var r = await fetch('/api/auth/register', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password:pw,company_name:company,industry,country})});
+    var d = await r.json();
+    if (!r.ok) { err.textContent=d.error||'Registration failed'; err.style.display='block'; btn.disabled=false; btn.textContent='Create free account'; return; }
+    window.location.href='/dashboard';
+  } catch(e) { err.textContent='Network error. Please try again.'; err.style.display='block'; btn.disabled=false; btn.textContent='Create free account'; }
+};
+document.addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('registerBtn').click(); });
 </script>
 </body>
 </html>

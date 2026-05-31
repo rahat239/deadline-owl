@@ -3,48 +3,87 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login — DeadlineOwl</title>
+<title>Sign In — DeadlineOwl</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-body{font-family:sans-serif;background:#060610;color:#f0f0f8;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem}
-.card{background:#0e0e1a;border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:2.5rem;width:100%;max-width:400px}
-h1{font-size:1.8rem;margin-bottom:0.4rem}
-p{font-size:0.9rem;color:#7878a0;margin-bottom:2rem}
-label{display:block;font-size:0.82rem;margin-bottom:0.4rem;color:#7878a0}
-input{width:100%;padding:0.7rem 1rem;background:#161625;border:1px solid rgba(255,255,255,0.13);border-radius:8px;color:#f0f0f8;font-size:0.92rem;outline:none;margin-bottom:1.25rem;box-sizing:border-box}
-button{width:100%;padding:0.85rem;background:#7c6cf8;color:#fff;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;margin-top:0.5rem}
-.error{background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.3);border-radius:8px;padding:0.75rem;font-size:0.85rem;color:#f87171;margin-bottom:1rem;display:none}
-.link{text-align:center;margin-top:1.5rem;font-size:0.88rem;color:#7878a0}
-.link a{color:#a89ff8}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--black:#0d0d0d;--white:#ffffff;--off:#f8f7f4;--border:#e5e3de;--text:#1c1c1a;--muted:#6b6b62;--light:#9a9a90;--gold:#b8973a;--red:#8b1a1a;--serif:'Playfair Display',Georgia,serif;--sans:'Source Sans 3',system-ui,sans-serif}
+body{font-family:var(--sans);background:var(--off);color:var(--text);min-height:100vh;display:grid;grid-template-columns:1fr 1fr}
+.left{position:relative;overflow:hidden}
+.left-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1200&q=80') center/cover no-repeat;filter:brightness(0.3)}
+.left-content{position:relative;z-index:2;padding:3rem;height:100%;display:flex;flex-direction:column;justify-content:space-between}
+.logo{font-family:var(--serif);font-size:1.4rem;color:var(--white);text-decoration:none}
+.left-quote{font-family:var(--serif);font-size:1.5rem;font-style:italic;color:var(--white);line-height:1.5;max-width:400px}
+.left-quote-author{font-size:0.82rem;color:rgba(255,255,255,0.5);margin-top:1rem;letter-spacing:0.06em;text-transform:uppercase}
+.left-gold-line{width:40px;height:2px;background:var(--gold);margin-bottom:1rem}
+.right{display:flex;align-items:center;justify-content:center;padding:3rem 2rem}
+.form-card{width:100%;max-width:420px}
+.form-eyebrow{font-size:0.72rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem}
+h1{font-family:var(--serif);font-size:2rem;font-weight:400;margin-bottom:0.5rem;color:var(--text)}
+.form-sub{font-size:0.9rem;color:var(--muted);margin-bottom:2rem}
+.field{margin-bottom:1.25rem}
+label{display:block;font-size:0.78rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem}
+input{width:100%;padding:0.875rem 1rem;background:var(--white);border:1px solid var(--border);font-family:var(--sans);font-size:0.95rem;color:var(--text);outline:none;transition:border-color 0.2s}
+input:focus{border-color:var(--gold)}
+input::placeholder{color:var(--light)}
+.btn-submit{width:100%;padding:0.875rem;background:var(--black);color:var(--white);font-family:var(--sans);font-size:0.82rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;border:none;cursor:pointer;transition:background 0.2s;margin-top:0.5rem}
+.btn-submit:hover{background:#333}
+.btn-submit:disabled{opacity:0.6;cursor:not-allowed}
+.error{background:#fef2f2;border:1px solid #fecaca;padding:0.75rem 1rem;font-size:0.85rem;color:var(--red);margin-bottom:1rem;display:none}
+.divider{border:none;border-top:1px solid var(--border);margin:1.75rem 0}
+.alt-text{font-size:0.875rem;color:var(--muted);text-align:center}
+.alt-text a{color:var(--text);font-weight:600;text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:1px;transition:border-color 0.2s}
+.alt-text a:hover{border-color:var(--gold)}
+@media(max-width:768px){body{grid-template-columns:1fr}.left{display:none}}
 </style>
 </head>
 <body>
-<div style="font-size:1.4rem;margin-bottom:2rem">🦉 DeadlineOwl</div>
-<div class="card">
-  <h1>Welcome back</h1>
-  <p>Sign in to your DeadlineOwl account.</p>
-  <div class="error" id="err"></div>
-  <label>Email</label>
-  <input type="email" id="em" placeholder="you@company.com">
-  <label>Password</label>
-  <input type="password" id="pw" placeholder="••••••••">
-  <button id="btn">Sign in →</button>
-  <div class="link">No account? <a href="/register">Create one free</a></div>
+<div class="left">
+  <div class="left-bg"></div>
+  <div class="left-content">
+    <a href="/" class="logo">DeadlineOwl</a>
+    <div>
+      <div class="left-gold-line"></div>
+      <p class="left-quote">"The difference between a fine and compliance is often just a matter of who remembered the deadline."</p>
+      <p class="left-quote-author">— Compliance professional</p>
+    </div>
+  </div>
+</div>
+<div class="right">
+  <div class="form-card">
+    <p class="form-eyebrow">Welcome back</p>
+    <h1>Sign in to your account</h1>
+    <p class="form-sub">Track your compliance deadlines and never miss a filing date.</p>
+    <div class="error" id="error"></div>
+    <div class="field">
+      <label>Email address</label>
+      <input type="email" id="email" placeholder="you@company.com" autocomplete="email">
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="password" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <button class="btn-submit" id="loginBtn">Sign in</button>
+    <hr class="divider">
+    <p class="alt-text">Don't have an account? <a href="/register">Create one free</a></p>
+  </div>
 </div>
 <script>
-document.getElementById('btn').onclick = async function() {
-  var em = document.getElementById('em').value.trim();
-  var pw = document.getElementById('pw').value;
-  var err = document.getElementById('err');
-  var btn = document.getElementById('btn');
-  if (!em || !pw) { err.textContent='Fill in all fields'; err.style.display='block'; return; }
-  btn.textContent='Signing in…'; btn.disabled=true; err.style.display='none';
+document.getElementById('loginBtn').onclick = async function() {
+  var email = document.getElementById('email').value.trim();
+  var pw = document.getElementById('password').value;
+  var btn = document.getElementById('loginBtn');
+  var err = document.getElementById('error');
+  if (!email || !pw) { err.textContent='Please fill in all fields'; err.style.display='block'; return; }
+  btn.disabled=true; btn.textContent='Signing in...'; err.style.display='none';
   try {
-    var r = await fetch('/api/auth/login', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:em,password:pw})});
+    var r = await fetch('/api/auth/login', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password:pw})});
     var d = await r.json();
-    if (!r.ok) { err.textContent=d.error||'Login failed'; err.style.display='block'; btn.textContent='Sign in →'; btn.disabled=false; return; }
+    if (!r.ok) { err.textContent=d.error||'Login failed'; err.style.display='block'; btn.disabled=false; btn.textContent='Sign in'; return; }
     window.location.href='/dashboard';
-  } catch(e) { err.textContent='Network error'; err.style.display='block'; btn.textContent='Sign in →'; btn.disabled=false; }
+  } catch(e) { err.textContent='Network error. Please try again.'; err.style.display='block'; btn.disabled=false; btn.textContent='Sign in'; }
 };
+document.addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('loginBtn').click(); });
 </script>
 </body>
 </html>

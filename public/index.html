@@ -19,9 +19,9 @@
   --muted:#6b6b62;
   --light:#9a9a90;
   --gold:#b8973a;
+  --gold-dark:#a07d2a;
   --gold-light:#fdf8ec;
   --green:#1a6b3a;
-  --green-light:#f0f7f3;
   --red:#8b1a1a;
   --serif:'Playfair Display',Georgia,serif;
   --sans:'Source Sans 3',system-ui,sans-serif;
@@ -29,176 +29,187 @@
 html{scroll-behavior:smooth}
 body{font-family:var(--sans);background:var(--white);color:var(--text);line-height:1.6;overflow-x:hidden}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 3rem;background:rgba(13,13,13,0.85);backdrop-filter:blur(10px)}
-.logo{font-family:var(--serif);font-size:1.4rem;color:var(--white);text-decoration:none;letter-spacing:0.02em}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.125rem 3rem;background:rgba(13,13,13,0.92);backdrop-filter:blur(12px)}
+.logo{font-family:var(--serif);font-size:1.35rem;color:var(--white);text-decoration:none;letter-spacing:0.01em}
 .nav-links{display:flex;align-items:center;gap:2.5rem}
-.nav-links a{color:rgba(255,255,255,0.75);text-decoration:none;font-size:0.875rem;font-weight:400;letter-spacing:0.04em;text-transform:uppercase;transition:color 0.2s}
+.nav-links a{color:rgba(255,255,255,0.65);text-decoration:none;font-size:0.85rem;font-weight:400;letter-spacing:0.05em;text-transform:uppercase;transition:color 0.2s}
 .nav-links a:hover{color:var(--white)}
-.nav-cta{padding:0.6rem 1.5rem;background:var(--gold);color:var(--white);font-family:var(--sans);font-size:0.82rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;transition:background 0.2s}
-.nav-cta:hover{background:#a07d2a}
+.nav-btns{display:flex;gap:0.75rem;align-items:center}
+.nav-login{color:rgba(255,255,255,0.55);text-decoration:none;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;padding:0.5rem 1rem;transition:color 0.2s}
+.nav-login:hover{color:var(--white)}
+.nav-cta{padding:0.55rem 1.375rem;background:var(--gold);color:var(--white);font-family:var(--sans);font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;transition:background 0.2s}
+.nav-cta:hover{background:var(--gold-dark)}
 
-/* HERO */
-.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1600&q=80') center/cover no-repeat;filter:brightness(0.35)}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(13,13,13,0.3) 0%,rgba(13,13,13,0.7) 100%)}
-.hero-content{position:relative;z-index:2;text-align:center;padding:2rem;max-width:860px;margin:0 auto}
-.hero-eyebrow{display:inline-block;font-size:0.75rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid rgba(184,151,58,0.4)}
-.hero h1{font-family:var(--serif);font-size:clamp(2.8rem,6vw,5rem);font-weight:400;line-height:1.1;color:var(--white);margin-bottom:1.5rem}
-.hero h1 em{font-style:italic;color:var(--gold)}
-.hero-sub{font-size:1.1rem;font-weight:300;color:rgba(255,255,255,0.8);max-width:580px;margin:0 auto 2.5rem;line-height:1.75}
-.hero-actions{display:flex;gap:1rem;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:3rem}
-.btn-gold{padding:0.875rem 2.25rem;background:var(--gold);color:var(--white);font-family:var(--sans);font-size:0.875rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;transition:background 0.2s;display:inline-block}
-.btn-gold:hover{background:#a07d2a}
-.btn-outline-white{padding:0.875rem 2.25rem;background:transparent;color:var(--white);font-family:var(--sans);font-size:0.875rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(255,255,255,0.5);transition:all 0.2s;display:inline-block}
-.btn-outline-white:hover{background:rgba(255,255,255,0.1);border-color:var(--white)}
-.hero-stats{display:flex;gap:3rem;justify-content:center;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.15);padding-top:2rem}
-.hero-stat{text-align:center}
-.hero-stat-num{font-family:var(--serif);font-size:2rem;color:var(--gold);display:block}
-.hero-stat-label{font-size:0.78rem;color:rgba(255,255,255,0.6);letter-spacing:0.08em;text-transform:uppercase;margin-top:4px}
+/* HERO — clean gradient, no photo */
+.hero{min-height:100vh;display:flex;align-items:center;background:var(--black);position:relative;overflow:hidden;padding:8rem 3rem 5rem}
+.hero::before{content:'';position:absolute;top:0;right:0;width:55%;height:100%;background:linear-gradient(135deg,transparent 0%,rgba(184,151,58,0.04) 50%,rgba(184,151,58,0.08) 100%)}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,rgba(184,151,58,0.3),transparent)}
+.hero-inner{max-width:1100px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.hero-left{}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:0.72rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.75rem}
+.hero-eyebrow::before{content:'';width:24px;height:1px;background:var(--gold)}
+h1{font-family:var(--serif);font-size:clamp(2.8rem,4.5vw,4.2rem);font-weight:400;line-height:1.1;color:var(--white);margin-bottom:1.5rem;letter-spacing:-0.01em}
+.hero-sub{font-size:1.05rem;font-weight:300;color:rgba(255,255,255,0.6);line-height:1.8;margin-bottom:2.5rem;max-width:480px}
+.hero-actions{display:flex;gap:1rem;align-items:center;margin-bottom:3rem;flex-wrap:wrap}
+.btn-gold{padding:0.875rem 2rem;background:var(--gold);color:var(--white);font-family:var(--sans);font-size:0.82rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;transition:background 0.2s;display:inline-block;white-space:nowrap}
+.btn-gold:hover{background:var(--gold-dark)}
+.btn-ghost{padding:0.875rem 2rem;background:transparent;color:rgba(255,255,255,0.7);font-family:var(--sans);font-size:0.82rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(255,255,255,0.2);transition:all 0.2s;display:inline-block;white-space:nowrap}
+.btn-ghost:hover{border-color:rgba(255,255,255,0.5);color:var(--white)}
+.hero-trust{display:flex;gap:2rem;flex-wrap:wrap}
+.trust-item{font-size:0.78rem;color:rgba(255,255,255,0.4);display:flex;align-items:center;gap:6px}
+.trust-check{color:var(--gold);font-size:0.7rem}
 
-/* TRUST BAR */
-.trust-bar{background:var(--black);padding:1.25rem 3rem;display:flex;align-items:center;justify-content:center;gap:3rem;flex-wrap:wrap}
-.trust-bar-label{font-size:0.72rem;color:rgba(255,255,255,0.4);letter-spacing:0.12em;text-transform:uppercase;white-space:nowrap}
-.trust-items{display:flex;gap:2.5rem;flex-wrap:wrap}
-.trust-item{font-size:0.82rem;font-weight:600;color:rgba(255,255,255,0.5);letter-spacing:0.06em;text-transform:uppercase}
+/* HERO RIGHT — dashboard card */
+.hero-right{}
+.dashboard-card{background:#161614;border:1px solid rgba(255,255,255,0.08);padding:0}
+.card-header{background:#1c1c1a;border-bottom:1px solid rgba(255,255,255,0.06);padding:0.875rem 1.25rem;display:flex;align-items:center;justify-content:space-between}
+.card-header-title{font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.4)}
+.card-header-badge{font-size:0.68rem;font-weight:600;padding:0.2rem 0.625rem;background:rgba(139,26,26,0.2);color:#f87171;letter-spacing:0.04em}
+.card-body{padding:1.25rem}
+.mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0.625rem;margin-bottom:1.25rem}
+.mini-stat{background:#1c1c1a;padding:0.75rem}
+.mini-stat-num{font-family:var(--serif);font-size:1.25rem;color:var(--white);line-height:1}
+.mini-stat-num.red{color:#f87171}
+.mini-stat-num.amber{color:#fbbf24}
+.mini-stat-num.green{color:#34d399}
+.mini-stat-label{font-size:0.65rem;color:rgba(255,255,255,0.35);margin-top:3px;text-transform:uppercase;letter-spacing:0.08em}
+.dl-items{display:flex;flex-direction:column;gap:0.5rem}
+.dl-item{background:#1c1c1a;padding:0.75rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:0.75rem;border-left:2px solid transparent}
+.dl-item.r{border-left-color:#f87171}
+.dl-item.a{border-left-color:#fbbf24}
+.dl-item.g{border-left-color:#34d399}
+.dl-item-title{font-size:0.8rem;color:rgba(255,255,255,0.85);font-weight:500}
+.dl-item-meta{font-size:0.68rem;color:rgba(255,255,255,0.3);margin-top:2px}
+.dl-badge{font-size:0.65rem;font-weight:700;padding:0.15rem 0.5rem;white-space:nowrap;letter-spacing:0.04em}
+.dl-badge.r{background:rgba(248,113,113,0.15);color:#f87171}
+.dl-badge.a{background:rgba(251,191,36,0.15);color:#fbbf24}
+.dl-badge.g{background:rgba(52,211,153,0.15);color:#34d399}
+.alert-row{margin-top:1rem;padding:0.75rem 1rem;background:rgba(184,151,58,0.08);border:1px solid rgba(184,151,58,0.15);font-size:0.72rem;color:rgba(255,255,255,0.5)}
+.alert-row strong{color:var(--gold)}
 
-/* INTRO SECTION */
-.intro-section{padding:6rem 3rem;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
-.intro-eyebrow{font-size:0.72rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem}
-.intro-section h2{font-family:var(--serif);font-size:clamp(2rem,3.5vw,2.8rem);font-weight:400;line-height:1.2;margin-bottom:1.5rem}
-.intro-section h2 em{font-style:italic}
-.intro-section p{font-size:1rem;color:var(--muted);line-height:1.8;margin-bottom:1.25rem}
-.intro-right{display:flex;flex-direction:column;gap:1.5rem}
-.intro-stat-box{padding:1.5rem;border-left:3px solid var(--gold);background:var(--off)}
-.intro-stat-box .num{font-family:var(--serif);font-size:2.5rem;color:var(--text);line-height:1}
-.intro-stat-box .label{font-size:0.82rem;color:var(--muted);margin-top:0.4rem}
+/* METRICS BAR */
+.metrics-bar{background:var(--off);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:2rem 3rem}
+.metrics-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:0;text-align:center}
+.metric-item{padding:0 2rem;border-right:1px solid var(--border)}
+.metric-item:last-child{border-right:none}
+.metric-num{font-family:var(--serif);font-size:2.5rem;font-weight:400;color:var(--text);line-height:1}
+.metric-label{font-size:0.75rem;color:var(--muted);margin-top:0.5rem;line-height:1.4}
 
 /* HOW IT WORKS */
-.how-section{background:var(--black);padding:6rem 3rem}
+.how-section{padding:6rem 3rem;background:var(--black)}
 .how-inner{max-width:1100px;margin:0 auto}
-.section-eyebrow-white{font-size:0.72rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem}
-.how-inner h2{font-family:var(--serif);font-size:clamp(2rem,3.5vw,2.8rem);font-weight:400;color:var(--white);line-height:1.2;margin-bottom:1rem}
-.how-inner h2 em{font-style:italic;color:var(--gold)}
-.how-inner .sub{font-size:1rem;color:rgba(255,255,255,0.5);max-width:500px;line-height:1.7;margin-bottom:3.5rem}
-.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;border:1px solid rgba(255,255,255,0.1)}
-.step-item{padding:2rem;border-right:1px solid rgba(255,255,255,0.1);position:relative}
-.step-item:last-child{border-right:none}
-.step-number{font-family:var(--serif);font-size:3rem;color:rgba(184,151,58,0.2);line-height:1;margin-bottom:1rem}
-.step-item h3{font-size:1rem;font-weight:600;color:var(--white);margin-bottom:0.625rem}
-.step-item p{font-size:0.875rem;color:rgba(255,255,255,0.5);line-height:1.65}
+.section-eyebrow-gold{font-size:0.72rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
+.section-eyebrow-gold::before{content:'';width:20px;height:1px;background:var(--gold)}
+.section-title-white{font-family:var(--serif);font-size:clamp(2rem,3.5vw,2.8rem);font-weight:400;color:var(--white);line-height:1.2;margin-bottom:1rem}
+.section-sub-muted{font-size:1rem;color:rgba(255,255,255,0.45);max-width:500px;line-height:1.75;margin-bottom:3.5rem}
+.steps-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid rgba(255,255,255,0.08)}
+.step{padding:2rem 1.75rem;border-right:1px solid rgba(255,255,255,0.08)}
+.step:last-child{border-right:none}
+.step-num{font-family:var(--serif);font-size:3rem;font-style:italic;color:rgba(184,151,58,0.25);line-height:1;margin-bottom:1.25rem}
+.step h3{font-size:0.9rem;font-weight:600;color:var(--white);margin-bottom:0.625rem;letter-spacing:0.02em}
+.step p{font-size:0.82rem;color:rgba(255,255,255,0.4);line-height:1.65}
 
 /* FEATURES */
 .features-section{padding:6rem 3rem;background:var(--off);border-top:1px solid var(--border)}
 .features-inner{max-width:1100px;margin:0 auto}
-.features-header{text-align:center;margin-bottom:3.5rem}
-.features-header .eyebrow{font-size:0.72rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem}
-.features-header h2{font-family:var(--serif);font-size:clamp(2rem,3.5vw,2.8rem);font-weight:400;line-height:1.2}
-.features-header h2 em{font-style:italic}
-.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:var(--border)}
-.feature-item{background:var(--white);padding:2rem}
-.feature-num{font-family:var(--serif);font-size:1.5rem;color:var(--gold);margin-bottom:1rem;font-style:italic}
-.feature-item h3{font-size:1rem;font-weight:600;margin-bottom:0.625rem}
-.feature-item p{font-size:0.875rem;color:var(--muted);line-height:1.65}
+.section-eyebrow-dark{font-size:0.72rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
+.section-eyebrow-dark::before{content:'';width:20px;height:1px;background:var(--gold)}
+.section-title-dark{font-family:var(--serif);font-size:clamp(2rem,3.5vw,2.8rem);font-weight:400;color:var(--text);line-height:1.2;margin-bottom:3.5rem}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.feature{background:var(--white);padding:2rem}
+.feature-num{font-family:var(--serif);font-size:1.25rem;font-style:italic;color:var(--gold);margin-bottom:1rem}
+.feature h3{font-size:0.9rem;font-weight:600;color:var(--text);margin-bottom:0.5rem}
+.feature p{font-size:0.82rem;color:var(--muted);line-height:1.65}
 
 /* USE CASES */
-.usecases-section{padding:6rem 3rem;max-width:1100px;margin:0 auto}
-.usecases-header{margin-bottom:3.5rem}
-.usecases-header .eyebrow{font-size:0.72rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem}
-.usecases-header h2{font-family:var(--serif);font-size:clamp(2rem,3.5vw,2.8rem);font-weight:400;line-height:1.2}
-.usecases-header h2 em{font-style:italic}
-.usecases-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
-.usecase-card{padding:2rem;border:1px solid var(--border)}
-.usecase-icon{font-size:1.75rem;margin-bottom:1rem}
-.usecase-card h3{font-size:1rem;font-weight:600;margin-bottom:0.5rem}
-.usecase-card p{font-size:0.875rem;color:var(--muted);line-height:1.65}
+.usecases-section{padding:6rem 3rem;background:var(--white);border-top:1px solid var(--border)}
+.usecases-inner{max-width:1100px;margin:0 auto}
+.usecases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem}
+.usecase{padding:1.75rem;border:1px solid var(--border);transition:border-color 0.2s}
+.usecase:hover{border-color:#c8c6c0}
+.usecase-icon{font-size:1.5rem;margin-bottom:1rem}
+.usecase h3{font-size:0.9rem;font-weight:600;color:var(--text);margin-bottom:0.5rem}
+.usecase p{font-size:0.82rem;color:var(--muted);line-height:1.65}
 
 /* TESTIMONIALS */
-.testi-section{background:var(--off);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:6rem 3rem}
+.testi-section{padding:6rem 3rem;background:var(--off);border-top:1px solid var(--border)}
 .testi-inner{max-width:1100px;margin:0 auto}
-.testi-header{text-align:center;margin-bottom:3.5rem}
-.testi-header .eyebrow{font-size:0.72rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem}
-.testi-header h2{font-family:var(--serif);font-size:clamp(2rem,3.5vw,2.8rem);font-weight:400;line-height:1.2}
-.testi-header h2 em{font-style:italic}
-.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
-.testi-card{background:var(--white);padding:2rem;border:1px solid var(--border)}
-.testi-quote-mark{font-family:var(--serif);font-size:4rem;color:var(--gold);line-height:0.5;margin-bottom:1.25rem;display:block}
-.testi-quote{font-family:var(--serif);font-size:1rem;font-style:italic;color:var(--text);line-height:1.75;margin-bottom:1.5rem}
-.testi-divider{width:40px;height:1px;background:var(--gold);margin-bottom:1.25rem}
-.testi-name{font-size:0.875rem;font-weight:600;color:var(--text)}
-.testi-role{font-size:0.78rem;color:var(--muted);margin-top:2px}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem}
+.testi{background:var(--white);padding:2rem;border:1px solid var(--border)}
+.testi-mark{font-family:var(--serif);font-size:3rem;color:var(--gold);line-height:0.6;margin-bottom:1.25rem;display:block;font-style:italic}
+.testi-text{font-family:var(--serif);font-size:0.95rem;font-style:italic;color:var(--text);line-height:1.75;margin-bottom:1.5rem}
+.testi-line{width:32px;height:1px;background:var(--gold);margin-bottom:1.25rem}
+.testi-name{font-size:0.82rem;font-weight:600;color:var(--text)}
+.testi-role{font-size:0.75rem;color:var(--muted);margin-top:2px}
 
 /* PRICING */
-.pricing-section{padding:6rem 3rem}
+.pricing-section{padding:6rem 3rem;background:var(--white);border-top:1px solid var(--border)}
 .pricing-inner{max-width:1050px;margin:0 auto}
-.pricing-header{text-align:center;margin-bottom:3.5rem}
-.pricing-header .eyebrow{font-size:0.72rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem}
-.pricing-header h2{font-family:var(--serif);font-size:clamp(2rem,3.5vw,2.8rem);font-weight:400;line-height:1.2}
-.pricing-header h2 em{font-style:italic}
-.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--border)}
-.price-card{padding:2.5rem;border-right:1px solid var(--border);position:relative}
-.price-card:last-child{border-right:none}
-.price-card.featured{background:var(--black)}
-.featured-label{font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;display:block}
-.plan-name{font-size:0.78rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.875rem}
-.price-card.featured .plan-name{color:rgba(255,255,255,0.5)}
-.plan-price{font-family:var(--serif);font-size:3.5rem;font-weight:400;line-height:1;color:var(--text);margin-bottom:0.25rem}
-.price-card.featured .plan-price{color:var(--white)}
-.plan-period{font-size:0.82rem;color:var(--muted);margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border)}
-.price-card.featured .plan-period{color:rgba(255,255,255,0.4);border-color:rgba(255,255,255,0.1)}
-.plan-desc{font-size:0.875rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.6}
-.price-card.featured .plan-desc{color:rgba(255,255,255,0.5)}
-.plan-features{list-style:none;display:flex;flex-direction:column;gap:0.625rem;margin-bottom:2rem}
-.plan-features li{font-size:0.875rem;color:var(--muted);display:flex;align-items:flex-start;gap:8px;line-height:1.4}
-.price-card.featured .plan-features li{color:rgba(255,255,255,0.6)}
-.plan-features li .ck{color:var(--gold);font-weight:600;flex-shrink:0}
-.plan-btn{display:block;width:100%;padding:0.875rem;font-family:var(--sans);font-size:0.8rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;text-align:center;text-decoration:none;cursor:pointer;border:none;transition:all 0.2s}
-.plan-btn-gold{background:var(--gold);color:var(--white)}
-.plan-btn-gold:hover{background:#a07d2a}
-.plan-btn-dark{background:var(--text);color:var(--white)}
-.plan-btn-dark:hover{background:#333}
-.plan-btn-outline{background:transparent;color:var(--text);border:1px solid var(--border)}
-.plan-btn-outline:hover{background:var(--off)}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--border);margin-top:3.5rem}
+.price{padding:2.5rem;border-right:1px solid var(--border)}
+.price:last-child{border-right:none}
+.price.featured{background:var(--black)}
+.price-tag{font-size:0.65rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.875rem;display:block}
+.plan-name{font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.875rem}
+.price.featured .plan-name{color:rgba(255,255,255,0.4)}
+.plan-amount{font-family:var(--serif);font-size:3.5rem;font-weight:400;color:var(--text);line-height:1;margin-bottom:0.25rem}
+.price.featured .plan-amount{color:var(--white)}
+.plan-period{font-size:0.8rem;color:var(--muted);margin-bottom:1.25rem;padding-bottom:1.25rem;border-bottom:1px solid var(--border)}
+.price.featured .plan-period{color:rgba(255,255,255,0.35);border-color:rgba(255,255,255,0.1)}
+.plan-desc{font-size:0.82rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.6}
+.price.featured .plan-desc{color:rgba(255,255,255,0.4)}
+.plan-list{list-style:none;display:flex;flex-direction:column;gap:0.575rem;margin-bottom:2rem}
+.plan-list li{font-size:0.82rem;color:var(--muted);display:flex;align-items:flex-start;gap:8px;line-height:1.4}
+.price.featured .plan-list li{color:rgba(255,255,255,0.5)}
+.plan-list li .ck{color:var(--gold);font-weight:700;flex-shrink:0}
+.price-btn{display:block;width:100%;padding:0.875rem;font-family:var(--sans);font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-align:center;text-decoration:none;cursor:pointer;border:none;transition:all 0.2s}
+.price-btn-gold{background:var(--gold);color:var(--white)}
+.price-btn-gold:hover{background:var(--gold-dark)}
+.price-btn-black{background:var(--black);color:var(--white)}
+.price-btn-black:hover{background:#333}
+.price-btn-outline{background:transparent;color:var(--text);border:1px solid var(--border)}
+.price-btn-outline:hover{background:var(--off)}
 
-/* CTA SECTION */
-.cta-section{position:relative;padding:7rem 3rem;text-align:center;overflow:hidden}
-.cta-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1600&q=80') center/cover no-repeat;filter:brightness(0.25)}
-.cta-content{position:relative;z-index:2;max-width:700px;margin:0 auto}
-.cta-eyebrow{font-size:0.72rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;display:block}
-.cta-content h2{font-family:var(--serif);font-size:clamp(2rem,4vw,3.5rem);font-weight:400;color:var(--white);line-height:1.15;margin-bottom:1.25rem}
-.cta-content h2 em{font-style:italic;color:var(--gold)}
-.cta-content p{font-size:1rem;color:rgba(255,255,255,0.65);margin-bottom:2.5rem;line-height:1.7}
-.cta-form{display:flex;gap:0;justify-content:center;max-width:500px;margin:0 auto 1.5rem}
-.cta-form input{flex:1;padding:0.875rem 1.25rem;border:none;font-family:var(--sans);font-size:0.95rem;color:var(--text);outline:none}
-.cta-note{font-size:0.78rem;color:rgba(255,255,255,0.4);letter-spacing:0.04em}
+/* CTA */
+.cta-section{padding:7rem 3rem;background:var(--black);text-align:center;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(184,151,58,0.08) 0%,transparent 70%);pointer-events:none}
+.cta-inner{position:relative;z-index:2;max-width:660px;margin:0 auto}
+.cta-eyebrow{font-size:0.72rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;display:flex;align-items:center;justify-content:center;gap:8px}
+.cta-eyebrow::before,.cta-eyebrow::after{content:'';width:20px;height:1px;background:var(--gold)}
+.cta-section h2{font-family:var(--serif);font-size:clamp(2rem,4vw,3.25rem);font-weight:400;color:var(--white);line-height:1.15;margin-bottom:1.25rem}
+.cta-section p{font-size:1rem;color:rgba(255,255,255,0.5);margin-bottom:2.5rem;line-height:1.7}
+.cta-form{display:flex;gap:0;justify-content:center;max-width:480px;margin:0 auto 1.25rem}
+.cta-form input{flex:1;padding:0.875rem 1.25rem;background:#1a1a18;border:1px solid rgba(255,255,255,0.12);border-right:none;font-family:var(--sans);font-size:0.92rem;color:var(--white);outline:none;transition:border-color 0.2s}
+.cta-form input:focus{border-color:var(--gold)}
+.cta-form input::placeholder{color:rgba(255,255,255,0.25)}
+.cta-note{font-size:0.75rem;color:rgba(255,255,255,0.3);letter-spacing:0.04em}
 
 /* FOOTER */
-footer{background:var(--black);padding:3rem}
+footer{background:#0a0a09;border-top:1px solid rgba(255,255,255,0.06);padding:2.5rem 3rem}
 .footer-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem}
-.footer-logo{font-family:var(--serif);font-size:1.25rem;color:var(--white);text-decoration:none}
+.footer-logo{font-family:var(--serif);font-size:1.15rem;color:rgba(255,255,255,0.7);text-decoration:none}
 .footer-links{display:flex;gap:2.5rem}
-.footer-links a{font-size:0.8rem;color:rgba(255,255,255,0.4);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;transition:color 0.2s}
-.footer-links a:hover{color:var(--white)}
-.footer-copy{font-size:0.78rem;color:rgba(255,255,255,0.25)}
+.footer-links a{font-size:0.75rem;color:rgba(255,255,255,0.3);text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s}
+.footer-links a:hover{color:rgba(255,255,255,0.7)}
+.footer-copy{font-size:0.72rem;color:rgba(255,255,255,0.2)}
 
-@media(max-width:768px){
+@media(max-width:900px){
   nav{padding:1rem 1.5rem}
   .nav-links{display:none}
-  .hero h1{font-size:2.5rem}
-  .intro-section{grid-template-columns:1fr;gap:3rem;padding:4rem 1.5rem}
-  .how-section,.features-section,.usecases-section,.testi-section,.pricing-section{padding:4rem 1.5rem}
-  .pricing-grid{grid-template-columns:1fr}
-  .price-card{border-right:none;border-bottom:1px solid var(--border)}
-  .price-card:last-child{border-bottom:none}
-  .steps-grid{grid-template-columns:1fr}
-  .step-item{border-right:none;border-bottom:1px solid rgba(255,255,255,0.1)}
-  footer{padding:2rem 1.5rem}
+  .hero-inner{grid-template-columns:1fr;gap:3rem}
+  .hero-right{display:none}
+  .steps-row{grid-template-columns:1fr 1fr}
+  .step{border-bottom:1px solid rgba(255,255,255,0.08)}
+  .features-grid,.usecases-grid,.testi-grid,.pricing-grid{grid-template-columns:1fr}
+  .price{border-right:none;border-bottom:1px solid var(--border)}
+  .metrics-inner{grid-template-columns:repeat(2,1fr)}
+  .metric-item{border-right:none;border-bottom:1px solid var(--border);padding:1.5rem}
+  .how-section,.features-section,.usecases-section,.testi-section,.pricing-section,.cta-section{padding:4rem 1.5rem}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a href="/" class="logo">DeadlineOwl</a>
   <div class="nav-links">
@@ -206,105 +217,99 @@ footer{background:var(--black);padding:3rem}
     <a href="#features">Features</a>
     <a href="#pricing">Pricing</a>
     <a href="/blog">Blog</a>
-    <a href="/login" style="color:rgba(255,255,255,0.6);text-decoration:none;font-size:0.875rem;font-weight:400;letter-spacing:0.04em;text-transform:uppercase">Sign in</a>
   </div>
-  <a href="/register" class="nav-cta">Get started free</a>
+  <div class="nav-btns">
+    <a href="/login" class="nav-login">Sign in</a>
+    <a href="/register" class="nav-cta">Get started free</a>
+  </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <span class="hero-eyebrow">Compliance deadline management</span>
-    <h1>Never miss a regulatory<br><span style="color:var(--black);font-style:normal;background:var(--white);padding:0 12px;display:inline-block;margin-top:8px">deadline</span> again</h1>
-    <p class="hero-sub">Add your compliance deadlines once. Receive automated email alerts at 30, 14, 7, and 1 day before each filing date. No spreadsheets. No missed filings. No penalties.</p>
-    <div class="hero-actions">
-      <a href="/register" class="btn-gold">Start free — no card required</a>
-      <a href="#how" class="btn-outline-white">How it works</a>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Compliance deadline management</p>
+      <h1>Never miss a regulatory deadline again</h1>
+      <p class="hero-sub">Add your compliance deadlines once. Receive automated email alerts at 30, 14, 7, and 1 day before each filing date. No spreadsheets. No missed filings. No penalties.</p>
+      <div class="hero-actions">
+        <a href="/register" class="btn-gold">Start free — no card required</a>
+        <a href="#how" class="btn-ghost">How it works</a>
+      </div>
+      <div class="hero-trust">
+        <span class="trust-item"><span class="trust-check">✓</span> 5 deadlines free forever</span>
+        <span class="trust-item"><span class="trust-check">✓</span> Alerts run automatically</span>
+        <span class="trust-item"><span class="trust-check">✓</span> Cancel anytime</span>
+      </div>
     </div>
-    <div class="hero-stats">
-      <div class="hero-stat">
-        <span class="hero-stat-num">$2.8B</span>
-        <span class="hero-stat-label">GDPR fines since 2018</span>
-      </div>
-      <div class="hero-stat">
-        <span class="hero-stat-num">40%</span>
-        <span class="hero-stat-label">Failures from missed deadlines</span>
-      </div>
-      <div class="hero-stat">
-        <span class="hero-stat-num">6hrs</span>
-        <span class="hero-stat-label">Saved per team per week</span>
+    <div class="hero-right">
+      <div class="dashboard-card">
+        <div class="card-header">
+          <span class="card-header-title">Your Deadlines</span>
+          <span class="card-header-badge">2 urgent</span>
+        </div>
+        <div class="card-body">
+          <div class="mini-stats">
+            <div class="mini-stat"><div class="mini-stat-num red">3</div><div class="mini-stat-label">Due soon</div></div>
+            <div class="mini-stat"><div class="mini-stat-num amber">7</div><div class="mini-stat-label">This month</div></div>
+            <div class="mini-stat"><div class="mini-stat-num green">28</div><div class="mini-stat-label">Completed</div></div>
+          </div>
+          <div class="dl-items">
+            <div class="dl-item r">
+              <div><div class="dl-item-title">Q2 VAT Return Filing</div><div class="dl-item-meta">Tax · United Kingdom</div></div>
+              <span class="dl-badge r">3 days</span>
+            </div>
+            <div class="dl-item a">
+              <div><div class="dl-item-title">Annual GDPR Data Audit</div><div class="dl-item-meta">Privacy · EU</div></div>
+              <span class="dl-badge a">7 days</span>
+            </div>
+            <div class="dl-item g">
+              <div><div class="dl-item-title">ISO 27001 Recertification</div><div class="dl-item-meta">Security · International</div></div>
+              <span class="dl-badge g">45 days</span>
+            </div>
+          </div>
+          <div class="alert-row">📧 Alert sent — <strong>"Q2 VAT Return Filing is due in 3 days"</strong></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- TRUST BAR -->
-<div class="trust-bar">
-  <span class="trust-bar-label">Trusted by teams in</span>
-  <div class="trust-items">
-    <span class="trust-item">Legal</span>
-    <span class="trust-item">Finance</span>
-    <span class="trust-item">Healthcare</span>
-    <span class="trust-item">FinTech</span>
-    <span class="trust-item">Manufacturing</span>
-    <span class="trust-item">Real Estate</span>
+<!-- METRICS -->
+<div class="metrics-bar">
+  <div class="metrics-inner">
+    <div class="metric-item"><div class="metric-num">$2.8B</div><div class="metric-label">GDPR fines paid since 2018</div></div>
+    <div class="metric-item"><div class="metric-num">40%</div><div class="metric-label">Compliance failures from missed deadlines</div></div>
+    <div class="metric-item"><div class="metric-num">6hrs</div><div class="metric-label">Saved per compliance team per week</div></div>
+    <div class="metric-item"><div class="metric-num">40+</div><div class="metric-label">Countries with active DeadlineOwl teams</div></div>
   </div>
 </div>
-
-<!-- INTRO -->
-<section class="intro-section">
-  <div>
-    <p class="intro-eyebrow">The problem</p>
-    <h2>Compliance failures are<br>rarely about <em>knowledge</em></h2>
-    <p>Every business knows their regulatory obligations. Tax filings. GDPR audits. License renewals. SEC submissions. The knowledge is there.</p>
-    <p>The failures happen because tracking dozens of deadlines manually — across spreadsheets, calendars, and email threads — is a system designed to fail. People get busy. Updates get missed. Deadlines slip through.</p>
-    <p>DeadlineOwl removes human memory from the equation entirely. Add your deadlines once. We send the alerts automatically. Forever.</p>
-    <a href="/register" class="btn-gold" style="display:inline-block;margin-top:1.5rem">Start tracking free →</a>
-  </div>
-  <div class="intro-right">
-    <div class="intro-stat-box">
-      <div class="num">£12,000</div>
-      <div class="label">Average UK VAT late filing penalty — one missed deadline</div>
-    </div>
-    <div class="intro-stat-box">
-      <div class="num">€20M</div>
-      <div class="label">Maximum GDPR fine for serious violations</div>
-    </div>
-    <div class="intro-stat-box">
-      <div class="num">Zero</div>
-      <div class="label">Missed deadlines reported by teams using DeadlineOwl</div>
-    </div>
-  </div>
-</section>
 
 <!-- HOW IT WORKS -->
 <section class="how-section" id="how">
   <div class="how-inner">
-    <p class="section-eyebrow-white">How it works</p>
-    <h2>Up and running in<br><em>three minutes</em></h2>
-    <p class="sub">No technical setup. No integrations required. Add your deadlines and we handle the rest.</p>
-    <div class="steps-grid">
-      <div class="step-item">
-        <div class="step-number">01</div>
+    <p class="section-eyebrow-gold">How it works</p>
+    <h2 class="section-title-white">Up and running in three minutes</h2>
+    <p class="section-sub-muted">No technical setup. No integrations required. Add your deadlines and we handle everything automatically.</p>
+    <div class="steps-row">
+      <div class="step">
+        <div class="step-num">01</div>
         <h3>Create your account</h3>
-        <p>Sign up free. No credit card required. Your first 5 deadlines are free forever.</p>
+        <p>Sign up free in 30 seconds. No credit card required. Your first 5 deadlines are free forever.</p>
       </div>
-      <div class="step-item">
-        <div class="step-number">02</div>
+      <div class="step">
+        <div class="step-num">02</div>
         <h3>Add your deadlines</h3>
         <p>Enter each deadline with its title, due date, category, and jurisdiction. 30 seconds per deadline.</p>
       </div>
-      <div class="step-item">
-        <div class="step-number">03</div>
+      <div class="step">
+        <div class="step-num">03</div>
         <h3>Set alert schedule</h3>
-        <p>Choose your reminder intervals — 30, 14, 7, and 1 day before. Each deadline has its own schedule.</p>
+        <p>Choose your reminder intervals — 30, 14, 7, and 1 day before. Customize each deadline individually.</p>
       </div>
-      <div class="step-item">
-        <div class="step-number">04</div>
+      <div class="step">
+        <div class="step-num">04</div>
         <h3>Receive automatic alerts</h3>
-        <p>DeadlineOwl emails you at every interval you set. No further action required from you.</p>
+        <p>DeadlineOwl emails you at every interval you set. No further action required from you ever again.</p>
       </div>
     </div>
   </div>
@@ -313,81 +318,31 @@ footer{background:var(--black);padding:3rem}
 <!-- FEATURES -->
 <section class="features-section" id="features">
   <div class="features-inner">
-    <div class="features-header">
-      <p class="eyebrow">Features</p>
-      <h2>Built for teams who cannot afford<br>to miss a <em>deadline</em></h2>
-    </div>
+    <p class="section-eyebrow-dark">Features</p>
+    <h2 class="section-title-dark">Built for teams who cannot afford<br>to miss a deadline</h2>
     <div class="features-grid">
-      <div class="feature-item">
-        <div class="feature-num">I.</div>
-        <h3>Escalating alerts</h3>
-        <p>Automatic email alerts at 30, 14, 7, and 1 day before each deadline. Urgency escalates so you know exactly what needs attention now.</p>
-      </div>
-      <div class="feature-item">
-        <div class="feature-num">II.</div>
-        <h3>Any jurisdiction</h3>
-        <p>Tax, GDPR, SEC, HIPAA, ISO, environmental, labor law — track deadlines for any country, regulation, or industry. All in one place.</p>
-      </div>
-      <div class="feature-item">
-        <div class="feature-num">III.</div>
-        <h3>Completion tracking</h3>
-        <p>Mark deadlines complete and build a full compliance history. Legally defensible records for audits and regulatory reviews.</p>
-      </div>
-      <div class="feature-item">
-        <div class="feature-num">IV.</div>
-        <h3>Audit trail</h3>
-        <p>Every deadline, every alert sent, every completion — timestamped and stored. Know exactly what happened and when.</p>
-      </div>
-      <div class="feature-item">
-        <div class="feature-num">V.</div>
-        <h3>Zero maintenance</h3>
-        <p>Add deadlines once. Alerts run automatically forever. No spreadsheet updates, no manual reminders, no checking required.</p>
-      </div>
-      <div class="feature-item">
-        <div class="feature-num">VI.</div>
-        <h3>Secure by design</h3>
-        <p>Your compliance data is encrypted and stored securely. We never share or sell your data to any third party.</p>
-      </div>
+      <div class="feature"><div class="feature-num">I.</div><h3>Escalating alerts</h3><p>Automatic email alerts at 30, 14, 7, and 1 day before each deadline. Urgency escalates so you always know what needs attention now.</p></div>
+      <div class="feature"><div class="feature-num">II.</div><h3>Any jurisdiction</h3><p>Tax, GDPR, SEC, HIPAA, ISO, environmental, labor law — track deadlines for any country, regulation, or industry in one place.</p></div>
+      <div class="feature"><div class="feature-num">III.</div><h3>Completion tracking</h3><p>Mark deadlines complete and build a full compliance history. Legally defensible records for audits and regulatory reviews.</p></div>
+      <div class="feature"><div class="feature-num">IV.</div><h3>Audit trail</h3><p>Every deadline, every alert sent, every completion — timestamped and stored permanently. Know exactly what happened and when.</p></div>
+      <div class="feature"><div class="feature-num">V.</div><h3>Zero maintenance</h3><p>Add deadlines once. Alerts run automatically forever. No spreadsheet updates, no manual checking, no reminders to set reminders.</p></div>
+      <div class="feature"><div class="feature-num">VI.</div><h3>Secure by design</h3><p>Your compliance data is encrypted and stored securely. We never share or sell your data to any third party under any circumstances.</p></div>
     </div>
   </div>
 </section>
 
 <!-- USE CASES -->
-<section class="usecases-section">
-  <div class="usecases-header">
-    <p class="eyebrow">Industries served</p>
-    <h2>Every team with a regulatory<br>obligation they cannot afford to <em>miss</em></h2>
-  </div>
-  <div class="usecases-grid">
-    <div class="usecase-card">
-      <div class="usecase-icon">⚖️</div>
-      <h3>Legal Departments</h3>
-      <p>Court filing deadlines, regulatory submissions, license renewals, contract expiry dates. Never miss a critical legal deadline.</p>
-    </div>
-    <div class="usecase-card">
-      <div class="usecase-icon">💼</div>
-      <h3>Finance & Tax Teams</h3>
-      <p>VAT returns, corporate tax filings, payroll submissions, quarterly reports. Automated alerts before every filing date.</p>
-    </div>
-    <div class="usecase-card">
-      <div class="usecase-icon">🔐</div>
-      <h3>Data Protection Officers</h3>
-      <p>GDPR, CCPA, and privacy regulation deadlines. Audit cycles, impact assessment schedules, and DPA renewals.</p>
-    </div>
-    <div class="usecase-card">
-      <div class="usecase-icon">🏥</div>
-      <h3>Healthcare Compliance</h3>
-      <p>HIPAA review cycles, FDA submission deadlines, clinical protocol renewals. Never miss a patient safety deadline.</p>
-    </div>
-    <div class="usecase-card">
-      <div class="usecase-icon">📊</div>
-      <h3>Financial Services</h3>
-      <p>SEC and FCA filing deadlines, AML review cycles, regulatory audit schedules. Full compliance history on demand.</p>
-    </div>
-    <div class="usecase-card">
-      <div class="usecase-icon">🏭</div>
-      <h3>Operations Teams</h3>
-      <p>Safety certifications, equipment inspections, environmental filings, operating permit renewals. Automated and organised.</p>
+<section class="usecases-section" id="usecases">
+  <div class="usecases-inner">
+    <p class="section-eyebrow-dark">Who it's for</p>
+    <h2 class="section-title-dark">Every team with a regulatory<br>obligation they cannot miss</h2>
+    <div class="usecases-grid">
+      <div class="usecase"><div class="usecase-icon">⚖️</div><h3>Legal Departments</h3><p>Court filing deadlines, regulatory submissions, license renewals, contract expiry dates and more.</p></div>
+      <div class="usecase"><div class="usecase-icon">💼</div><h3>Finance & Tax Teams</h3><p>VAT returns, corporate tax filings, payroll submissions, quarterly reports and financial deadlines.</p></div>
+      <div class="usecase"><div class="usecase-icon">🔐</div><h3>Data Protection Officers</h3><p>GDPR, CCPA, and privacy regulation deadlines. Audit cycles, impact assessments, DPA renewals.</p></div>
+      <div class="usecase"><div class="usecase-icon">🏥</div><h3>Healthcare Compliance</h3><p>HIPAA review cycles, FDA submission deadlines, clinical protocol renewals, patient safety filings.</p></div>
+      <div class="usecase"><div class="usecase-icon">📊</div><h3>Financial Services</h3><p>SEC and FCA filing deadlines, AML review cycles, regulatory audit schedules, reporting obligations.</p></div>
+      <div class="usecase"><div class="usecase-icon">🏭</div><h3>Operations Teams</h3><p>Safety certifications, equipment inspections, environmental filings, operating permit renewals.</p></div>
     </div>
   </div>
 </section>
@@ -395,29 +350,27 @@ footer{background:var(--black);padding:3rem}
 <!-- TESTIMONIALS -->
 <section class="testi-section">
   <div class="testi-inner">
-    <div class="testi-header">
-      <p class="eyebrow">Client testimonials</p>
-      <h2>What compliance professionals<br>say about <em>DeadlineOwl</em></h2>
-    </div>
+    <p class="section-eyebrow-dark">Testimonials</p>
+    <h2 class="section-title-dark">What compliance teams say<br>about DeadlineOwl</h2>
     <div class="testi-grid">
-      <div class="testi-card">
-        <span class="testi-quote-mark">"</span>
-        <p class="testi-quote">We missed a VAT deadline last year and paid £12,000 in penalties. Since using DeadlineOwl we have had zero misses across 23 active deadlines.</p>
-        <div class="testi-divider"></div>
+      <div class="testi">
+        <span class="testi-mark">"</span>
+        <p class="testi-text">We missed a VAT deadline last year and paid £12,000 in penalties. Since using DeadlineOwl we have had zero misses across 23 active deadlines.</p>
+        <div class="testi-line"></div>
         <div class="testi-name">James M.</div>
-        <div class="testi-role">Chief Financial Officer, UK Manufacturing</div>
+        <div class="testi-role">CFO, UK Manufacturing Firm</div>
       </div>
-      <div class="testi-card">
-        <span class="testi-quote-mark">"</span>
-        <p class="testi-quote">Our legal team tracked 40 deadlines in a spreadsheet. Someone always missed an update. DeadlineOwl eliminated that problem completely.</p>
-        <div class="testi-divider"></div>
+      <div class="testi">
+        <span class="testi-mark">"</span>
+        <p class="testi-text">Our legal team tracked 40 deadlines in a spreadsheet. Someone always missed an update. DeadlineOwl eliminated that problem completely.</p>
+        <div class="testi-line"></div>
         <div class="testi-name">Sarah R.</div>
         <div class="testi-role">General Counsel, SaaS Company</div>
       </div>
-      <div class="testi-card">
-        <span class="testi-quote-mark">"</span>
-        <p class="testi-quote">The 30-day alerts give us time to actually prepare. Not just panic. That is the difference between passing an audit and failing one.</p>
-        <div class="testi-divider"></div>
+      <div class="testi">
+        <span class="testi-mark">"</span>
+        <p class="testi-text">The 30-day alerts give us time to actually prepare — not just panic. That is the difference between passing an audit and failing one.</p>
+        <div class="testi-line"></div>
         <div class="testi-name">Anita P.</div>
         <div class="testi-role">Compliance Director, FinTech</div>
       </div>
@@ -428,31 +381,29 @@ footer{background:var(--black);padding:3rem}
 <!-- PRICING -->
 <section class="pricing-section" id="pricing">
   <div class="pricing-inner">
-    <div class="pricing-header">
-      <p class="eyebrow">Pricing</p>
-      <h2>Transparent pricing,<br><em>no surprises</em></h2>
-    </div>
+    <p class="section-eyebrow-dark">Pricing</p>
+    <h2 class="section-title-dark">Transparent pricing,<br>no surprises</h2>
     <div class="pricing-grid">
-      <div class="price-card">
+      <div class="price">
         <div class="plan-name">Starter</div>
-        <div class="plan-price">$0</div>
+        <div class="plan-amount">$0</div>
         <div class="plan-period">Free forever</div>
         <div class="plan-desc">For individuals getting started with compliance tracking.</div>
-        <ul class="plan-features">
+        <ul class="plan-list">
           <li><span class="ck">✓</span> 5 active deadlines</li>
           <li><span class="ck">✓</span> Email alerts (30/14/7/1 day)</li>
           <li><span class="ck">✓</span> All categories and jurisdictions</li>
           <li><span class="ck">✓</span> Completion tracking</li>
         </ul>
-        <a href="/register" class="plan-btn plan-btn-outline">Get started free</a>
+        <a href="/register" class="price-btn price-btn-outline">Get started free</a>
       </div>
-      <div class="price-card featured">
-        <span class="featured-label">Most popular</span>
+      <div class="price featured">
+        <span class="price-tag">Most popular</span>
         <div class="plan-name">Professional</div>
-        <div class="plan-price" style="color:var(--white)">$29</div>
+        <div class="plan-amount" style="color:var(--white)">$29</div>
         <div class="plan-period">Per month</div>
         <div class="plan-desc">For compliance teams managing multiple obligations.</div>
-        <ul class="plan-features">
+        <ul class="plan-list">
           <li><span class="ck">✓</span> 100 active deadlines</li>
           <li><span class="ck">✓</span> Email alerts (30/14/7/1 day)</li>
           <li><span class="ck">✓</span> All categories and jurisdictions</li>
@@ -460,14 +411,14 @@ footer{background:var(--black);padding:3rem}
           <li><span class="ck">✓</span> CSV export</li>
           <li><span class="ck">✓</span> Priority support</li>
         </ul>
-        <a href="#" class="plan-btn plan-btn-gold" id="pro-btn">Start 14-day free trial</a>
+        <a href="#" class="price-btn price-btn-gold" id="pro-btn">Start 14-day free trial</a>
       </div>
-      <div class="price-card">
+      <div class="price">
         <div class="plan-name">Enterprise</div>
-        <div class="plan-price">$99</div>
+        <div class="plan-amount">$99</div>
         <div class="plan-period">Per month</div>
         <div class="plan-desc">For large legal and compliance departments.</div>
-        <ul class="plan-features">
+        <ul class="plan-list">
           <li><span class="ck">✓</span> Unlimited deadlines</li>
           <li><span class="ck">✓</span> Email and Slack alerts</li>
           <li><span class="ck">✓</span> All categories and jurisdictions</li>
@@ -476,7 +427,7 @@ footer{background:var(--black);padding:3rem}
           <li><span class="ck">✓</span> SSO and SAML</li>
           <li><span class="ck">✓</span> Dedicated support</li>
         </ul>
-        <a href="#" class="plan-btn plan-btn-dark" id="ent-btn">Start 14-day free trial</a>
+        <a href="#" class="price-btn price-btn-black" id="ent-btn">Start 14-day free trial</a>
       </div>
     </div>
   </div>
@@ -484,20 +435,18 @@ footer{background:var(--black);padding:3rem}
 
 <!-- CTA -->
 <section class="cta-section">
-  <div class="cta-bg"></div>
-  <div class="cta-content">
-    <span class="cta-eyebrow">Get started today</span>
-    <h2>Start in three minutes.<br><em>Free forever.</em></h2>
-    <p>No credit card required. 5 deadlines free forever. Upgrade when you need more. Cancel anytime.</p>
+  <div class="cta-inner">
+    <p class="cta-eyebrow">Get started today</p>
+    <h2>Start in three minutes.<br>Free forever.</h2>
+    <p>No credit card required. 5 deadlines free forever.<br>Upgrade when you need more. Cancel anytime.</p>
     <div class="cta-form">
       <input type="email" placeholder="your@company.com" id="ctaEmail">
-      <a href="/register" class="btn-gold" onclick="passEmail()" style="white-space:nowrap;padding:0.875rem 1.75rem;font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;font-weight:600;text-decoration:none;display:inline-block">Get started free</a>
+      <a href="/register" class="btn-gold" onclick="passEmail()" style="white-space:nowrap;padding:0.875rem 1.75rem;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;text-decoration:none;display:inline-block">Get started free</a>
     </div>
     <p class="cta-note">Trusted by compliance teams in 40+ countries worldwide</p>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <a href="/" class="footer-logo">DeadlineOwl</a>
@@ -515,17 +464,9 @@ footer{background:var(--black);padding:3rem}
 <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 <script>
 Paddle.Setup({ token: 'live_3358823fdc3d871c516842354ab' });
-function openCheckout(priceId) {
-  Paddle.Checkout.open({ items: [{ priceId: priceId, quantity: 1 }] });
-}
-document.getElementById('pro-btn').onclick = function(e) {
-  e.preventDefault();
-  openCheckout('pri_01kszgc92xn75n8jvyvavavc2a');
-};
-document.getElementById('ent-btn').onclick = function(e) {
-  e.preventDefault();
-  openCheckout('pri_01kszgdvp8vg9j0s2wfd2z5e08');
-};
+function openCheckout(priceId) { Paddle.Checkout.open({ items: [{ priceId: priceId, quantity: 1 }] }); }
+document.getElementById('pro-btn').onclick = function(e) { e.preventDefault(); openCheckout('pri_01kszgc92xn75n8jvyvavavc2a'); };
+document.getElementById('ent-btn').onclick = function(e) { e.preventDefault(); openCheckout('pri_01kszgdvp8vg9j0s2wfd2z5e08'); };
 function passEmail() {
   var email = document.getElementById('ctaEmail').value;
   if (email) window.location.href = '/register?email=' + encodeURIComponent(email);
