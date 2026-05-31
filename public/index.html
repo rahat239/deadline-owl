@@ -424,7 +424,7 @@ footer{padding:3rem 2rem;border-top:1px solid var(--border);display:flex;align-i
           <li><span class="check">✓</span> CSV export</li>
           <li><span class="check">✓</span> Priority support</li>
         </ul>
-        <a href="/register" class="btn btn-primary" style="width:100%;justify-content:center">Start 14-day free trial</a>
+        <a href="#" onclick="openCheckout('pri_01kszgc92xn75n8jvyvavavc2a')" class="btn btn-primary" style="width:100%;justify-content:center">Start 14-day free trial</a>
       </div>
       <div class="price-card">
         <div class="plan-name">Enterprise</div>
@@ -439,7 +439,7 @@ footer{padding:3rem 2rem;border-top:1px solid var(--border);display:flex;align-i
           <li><span class="check">✓</span> SSO / SAML</li>
           <li><span class="check">✓</span> Dedicated support</li>
         </ul>
-        <a href="/register" class="btn btn-outline" style="width:100%;justify-content:center">Start 14-day free trial</a>
+        <a href="#" onclick="openCheckout('pri_01kszgdvp8vg9j0s2wfd2z5e08')" class="btn btn-outline" style="width:100%;justify-content:center">Start 14-day free trial</a>
       </div>
     </div>
   </div>
@@ -477,5 +477,5 @@ function passEmail() {
   if (email) window.location.href = '/register?email=' + encodeURIComponent(email);
 }
 </script>
-</body>
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script><script>Paddle.Setup({ token: 'live_3358823fdc3d871c516842354ab' });function openCheckout(priceId){Paddle.Checkout.open({items:[{priceId:priceId,quantity:1}]});}</script><script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script><script>Paddle.Setup({ token: 'live_3358823fdc3d871c516842354ab' });function openCheckout(priceId){Paddle.Checkout.open({items:[{priceId:priceId,quantity:1}]});}</script></body>
 </html>
