@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#0d0d0d"/>
+  <rect x="0" y="480" width="512" height="32" fill="#b8973a"/>
+  <text x="256" y="300" text-anchor="middle" font-size="280" font-family="serif">🦉</text>
+  <text x="256" y="430" text-anchor="middle" font-family="Georgia,serif" font-size="56" fill="white" letter-spacing="2">DeadlineOwl</text>
+</svg>
